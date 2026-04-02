@@ -1,7 +1,11 @@
 import bcrypt
+#need pip install bcrypt to use this code, run "pip install bcrypt" in your terminal to install it
 salt = bcrypt.gensalt()
 
 correct_password = "$2b$12$51UGFYdwfqfxbfMBscUVNuIA.PPH5aeyiRyfhE3bT645VGoDZ/ltG"
+
+#the dehashed password is "mypasswords"
+
 access_password = input("Enter your password to access the program: ")
 if bcrypt.checkpw(access_password.encode('utf-8'), correct_password.encode('utf-8')):
     print("Access granted!")
