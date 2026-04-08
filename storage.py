@@ -1,28 +1,32 @@
 # handles saving and reading passwords from file
-import os
 
 def save_password(website, encrypted_password):
-    if not website.strip() or not encrypted_password.strip():
+    if website.strip() == "" or encrypted_password.strip() == "":
         print("Website or password cannot be empty.")
         return
 
     with open("passwords.txt", "a") as file:
-        file.write(f"{website}:{encrypted_password}\n")
+        file.write(website + ":" + encrypted_password + "\n")
 
 
 def read_passwords():
     saved_data = []
-    if not os.path.exists("passwords.txt"):
-        return saved_data
 
-    with open("passwords.txt", "r") as file:
-        for line in file:
-            line = line.strip()
-            if line:
-                parts = line.split(":", 1)
-                if len(parts) == 2:
-                    website, encrypted_password = parts
-                    saved_data.append((website, encrypted_password))
+    try:
+        with open("passwords.txt", "r") as file:
+            for line in file:
+                line = line.strip()
+
+                if line != "":
+                    parts = line.split(":", 1)
+
+                    if len(parts) == 2:
+                        website = parts[0]
+                        encrypted_password = parts[1]
+                        saved_data.append((website, encrypted_password))
+
+    except FileNotFoundError:
+        print("No saved passwords found yet.")
 
     return saved_data
 
