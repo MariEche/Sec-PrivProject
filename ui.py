@@ -11,7 +11,7 @@ def encrypt():
         return
 
     if len(password) < 6:
-        result_label.config(text="❌ Password too short (min 6 chars)")
+        result_label.config(text="❌ Password too short (Reccommended: 6+ characters)")
         return
 
     encrypted = encrypt_password(password)
@@ -47,16 +47,22 @@ def decrypt():
 # main window
 root = tk.Tk()
 root.title("Password Tool")
-root.geometry("300x250")
+root.geometry("1200x1000")
 
 # labels + inputs
-tk.Label(root, text="Website").pack()
-website_entry = tk.Entry(root)
-website_entry.pack()
 
-tk.Label(root, text="Password").pack()
-password_entry = tk.Entry(root)
-password_entry.pack()
+main_frame = tk.Frame(root)
+main_frame.pack(expand=True) 
+font_style = ("Arial", 30)
+
+
+tk.Label(main_frame, text="Website", font=font_style).pack(pady=10)
+website_entry = tk.Entry(main_frame, width=30, font=font_style)
+website_entry.pack(pady=5)
+
+tk.Label(main_frame, text="Password", font=font_style).pack(pady=10)
+password_entry = tk.Entry(main_frame, width=30, font=font_style)
+password_entry.pack(pady=5)
 
 
 
@@ -74,13 +80,13 @@ def view_all():
     result_label.config(text=text)
 
 # buttons
-tk.Button(root, text="Encrypt", command=encrypt).pack(pady=5)
-tk.Button(root, text="Decrypt", command=decrypt).pack(pady=5)
-tk.Button(root, text="View Saved", command=view_all).pack(pady=5)
+tk.Button(main_frame, text="Encrypt", command=encrypt, width=20, font=font_style).pack(pady=10)
+tk.Button(main_frame, text="Decrypt", command=decrypt, width=20, font=font_style).pack(pady=10)
+tk.Button(main_frame, text="View Saved", command=view_all, width=20, font=font_style).pack(pady=10)
 
 
 # result
-result_label = tk.Label(root, text="")
+result_label = tk.Label(main_frame, text="", font=font_style, wraplength=900, justify="center")
 result_label.pack(pady=10)
 
 root.mainloop()
