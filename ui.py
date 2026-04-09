@@ -21,6 +21,11 @@ def encrypt():
         if encrypted == p:
             result_label.config(text="⚠️ Password already used")
             return
+        
+    for w, p in saved:
+        if website.lower() == w.lower():
+            result_label.config(text="⚠️ Password for this website already exists")
+            return
 
     save_password(website, encrypted)
 
