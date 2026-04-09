@@ -1,6 +1,17 @@
 from storage import save_password, read_passwords
 from encrypt import encrypt_password, decrypt_password
 import tkinter as tk
+from tkinter import messagebox, simpledialog
+import sys
+from userauth import check_master_password
+
+def ask_user_password():
+    password = simpledialog.askstring("Master Password", "Enter your master password:", show='*')
+    if check_master_password(password):
+        return True
+    else:
+        messagebox.showerror("Access Denied", "Incorrect master password. Exiting.")
+        return False
 
 def encrypt():
     website = website_entry.get()
@@ -46,6 +57,10 @@ def decrypt():
 
 # main window
 root = tk.Tk()
+root.withdraw()  # Hide the main window while asking for password
+
+if ask_user_password():
+    root.deiconify()  # Show the main window if password is correct
 root.title("Password Tool")
 root.geometry("1200x1000")
 
