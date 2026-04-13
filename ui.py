@@ -90,7 +90,7 @@ def view_all():
 
     text = ""
     for website, password in saved:
-        text += f"{website}: {password}\n"
+        text += f"{website}: {decrypt_password(password)}\n"
 
     result_label.config(text=text)
 
