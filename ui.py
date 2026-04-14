@@ -44,14 +44,25 @@ def encrypt():
 
 def decrypt():
     password = password_entry.get()
+    website = website_entry.get()
 
-    if password.strip() == "":
-        result_label.config(text="❌ Enter encrypted password")
+    if website.strip() == "" and password.strip() == "":
+        result_label.config(text="❌ Fill at least one field")
         return
-
-    decrypted = decrypt_password(password)
-
-    result_label.config(text=f"🔓 Decrypted: {decrypted}")
+    
+    if website.strip() != "":
+        saved = read_passwords()
+        for w, p in saved:
+            if website.lower() == w.lower():
+                decrypted = decrypt_password(p)
+                result_label.config(text=f"🔓 Decrypted: {decrypted}")
+                return
+        result_label.config(text="❌ Website not found")
+        return
+    
+    if password.strip() != "":
+        decrypted = decrypt_password(password)
+        result_label.config(text=f"🔓 Decrypted: {decrypted}")
 
    
 
